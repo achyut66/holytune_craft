@@ -1,0 +1,52 @@
+.antique-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px 0;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.antique {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.arrow-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+/* Fade-in and slide-up animations */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(50px); /* Start position below */
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0); /* End position */
+    }
+}
+
+.fade-in-up {
+    opacity: 0;
+    animation: fadeInUp 1s ease-out forwards;
+}
+
+.fade-in-up-visible {
+    opacity: 1;
+}
+
+/* Optional: Add any transition effect to make the page load smoothly */
+.fade-in {
+    opacity: 0;
+    transition: opacity 1s ease-out;
+}
+
+.fade-in-visible {
+    opacity: 1;
+}
+

@@ -1,0 +1,77 @@
+.historyofsingingbowl {
+    padding: 20px 0;
+    margin-top: 30px;
+}
+
+.text-card {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.text-card {
+    background-color: #f9f9f9;
+}
+
+.history-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* Force col-md-6 to align side by side */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.col-md-6 {
+    display: flex;
+    flex: 1 0 50%; /* Ensure each column takes up 50% */
+    padding: 0 15px; /* Adjust padding if needed */
+}
+
+/* Ensure the content is properly spaced on smaller screens */
+@media (max-width: 768px) {
+    .col-md-6 {
+        flex: 1 0 100%; /* Stack columns vertically on small screens */
+        margin-bottom: 20px;
+    }
+}
+.image-card {
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 200px;  /* Set to the same height as the images */
+}
+
+.history-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: transform 0.3s ease-in-out; /* Smooth transition for hover effect */
+}
+
+/* Adjust the left position for overlap effect */
+.history-image:nth-child(1) {
+    left: 0;  /* First image, no offset */
+    z-index: 3;
+}
+
+.history-image:nth-child(2) {
+    left: 50px;  /* Second image shifted to the right */
+    z-index: 2;
+}
+
+.history-image:nth-child(3) {
+    left: 100px; /* Third image shifted further to the right */
+    z-index: 1;
+}
+
+/* Optional: Add hover effect to scale images when hovered */
+.history-image:hover {
+    transform: scale(1.1);
+}
+

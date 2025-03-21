@@ -71,13 +71,11 @@ function Header() {
                     <li>
                         <Link href={route("login")} className="icon-user">
                             <FontAwesomeIcon icon={faUser} />
-                            Login
                         </Link>
                     </li>
                     <li>
                         <Link href={route("cart")} className="icon-user-cart">
                             <FontAwesomeIcon icon={faShoppingCart} />
-                            Cart
                             {cartCount > 0 && (
                                 <span className="cart-count-badge">
                                     {cartCount}

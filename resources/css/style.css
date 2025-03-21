@@ -416,6 +416,42 @@ tr:hover .cat-datas {
   right: 5px;
 }
 
+/* Fade-in animation */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.fade-in-up-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Slide-in from left */
+.slide-in-left {
+  opacity: 0;
+  transform: translateX(-100px);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.slide-in-left-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Example for right animation */
+.slide-in-right {
+  opacity: 0;
+  transform: translateX(100px);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.slide-in-right-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
 
 
 

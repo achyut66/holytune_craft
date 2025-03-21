@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, Head } from "@inertiajs/react";
 import Header from "@/Pages/Header/Header";
 import Footer from "@/Pages/Header/Footer";
-import Banner from "@/components/Banner";
+import Banner from "@/Components/Banner";
 import Productlists from "@/Components/Productlists";
 import PageTitle from "@/Components/Pagetitle";
 import Community from "@/Components/Community";
@@ -10,13 +10,11 @@ import ScrollerButton from "@/Components/Scroller";
 import StatusBarCom from "@/Components/StatusBar";
 import Trending from "@/Components/Trending";
 import Marquee from "@/Components/Marque";
-import MessengerChat from "@/Components/FacebookChat";
 import Accessories from "@/Components/Accessories";
 import Instruments from "@/Components/Instrument";
 import WhatsAppChat from "@/Components/WhatsApp";
 
 export default function Welcome(props) {
-    const [scrolled, setScrolled] = useState(false);
     const [isInView, setIsInView] = useState({
         banner: false,
         productlists: false,
@@ -28,94 +26,139 @@ export default function Welcome(props) {
         marquee: false,
     });
 
-    // Scroll event handler to trigger animation when user scrolls down
-    const handleScroll = () => {
-        if (window.scrollY > 50) {
-            // Trigger after 50px scroll
-            setScrolled(true);
-        } else {
-            setScrolled(false);
-        }
+    // Create a ref for each component
+    const bannerRef = useRef(null);
+    const productlistsRef = useRef(null);
+    const accessoriesRef = useRef(null);
+    const instrumentsRef = useRef(null);
+    const communityRef = useRef(null);
+    const trendingRef = useRef(null);
+    const statusBarRef = useRef(null);
+    const marqueeRef = useRef(null);
+
+    // Use the IntersectionObserver API to detect when a component is in view
+    const observeComponent = (componentRef, componentName) => {
+        useEffect(() => {
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            setIsInView((prev) => ({
+                                ...prev,
+                                [componentName]: true,
+                            }));
+                        } else {
+                            setIsInView((prev) => ({
+                                ...prev,
+                                [componentName]: false,
+                            }));
+                        }
+                    });
+                },
+                { threshold: 0.5 }
+            );
+            if (componentRef.current) observer.observe(componentRef.current);
+            return () => {
+                if (componentRef.current)
+                    observer.unobserve(componentRef.current);
+            };
+        }, [componentRef, componentName]);
     };
 
-    // Add event listener for scroll
-    useEffect(() => {
-        window.addEventListener("scroll", handleScroll);
-        return () => {
-            window.removeEventListener("scroll", handleScroll);
-        };
-    }, []);
+    observeComponent(bannerRef, "banner");
+    observeComponent(productlistsRef, "productlists");
+    observeComponent(accessoriesRef, "accessories");
+    observeComponent(instrumentsRef, "instruments");
+    observeComponent(communityRef, "community");
+    observeComponent(trendingRef, "trending");
+    observeComponent(statusBarRef, "statusBar");
+    observeComponent(marqueeRef, "marquee");
 
-    // Animation class based on whether the user has scrolled
     const getScrollClass = (componentName) => {
-        return scrolled
-            ? `${componentName} fade-in-up-visible`
-            : `${componentName} fade-in-up`;
+        switch (componentName) {
+            case "banner":
+                return isInView[componentName]
+                    ? "banner fade-in-up-visible"
+                    : "banner fade-in-up";
+            case "productlists":
+                return isInView[componentName]
+                    ? "productlists slide-in-left-visible"
+                    : "productlists slide-in-left";
+            case "accessories":
+                return isInView[componentName]
+                    ? "accessories slide-in-right-visible"
+                    : "accessories slide-in-right";
+            case "instruments":
+                return isInView[componentName]
+                    ? "instruments fade-in-up-visible"
+                    : "instruments fade-in-up";
+            case "community":
+                return isInView[componentName]
+                    ? "community fade-in-up-visible"
+                    : "community fade-in-up";
+            case "trending":
+                return isInView[componentName]
+                    ? "trending slide-in-left-visible"
+                    : "trending slide-in-left";
+            case "statusBar":
+                return isInView[componentName]
+                    ? "statusBar fade-in-up-visible"
+                    : "statusBar fade-in-up";
+            default:
+                return "";
+        }
     };
 
     return (
         <>
             <Header />
             <Head title="Welcome" />
-            <div>
+
+            {/* Banner */}
+            <div ref={bannerRef} className={getScrollClass("banner")}>
                 <Banner />
             </div>
-            <div>
-                <PageTitle
-                    dynamictitle={"Singing bowls"}
-                    className={getScrollClass("fade-in-up")}
-                />
+
+            {/* Product List */}
+            <div
+                ref={productlistsRef}
+                className={getScrollClass("productlists")}
+            >
+                <PageTitle dynamictitle={"Singing bowls"} />
+                <Productlists />
             </div>
-            <div>
-                <Productlists className={getScrollClass("fade-in-up")} />
+
+            {/* Accessories */}
+            <div ref={accessoriesRef} className={getScrollClass("accessories")}>
+                <PageTitle dynamictitle={"Accessories"} />
+                <Accessories />
             </div>
-            <div>
-                <PageTitle
-                    dynamictitle={"Accessories"}
-                    className={getScrollClass("fade-in-up")}
-                />
+
+            {/* Instruments */}
+            <div ref={instrumentsRef} className={getScrollClass("instruments")}>
+                <PageTitle dynamictitle={"Instruments"} />
+                <Instruments />
             </div>
-            <div>
-                <Accessories className={getScrollClass("fade-in-up")} />
+
+            {/* Community */}
+            <div ref={communityRef} className={getScrollClass("community")}>
+                <Community />
             </div>
-            <div>
-                <PageTitle
-                    dynamictitle={"Instruments"}
-                    className={getScrollClass("fade-in-up")}
-                />
+
+            {/* Trending */}
+            <div ref={trendingRef} className={getScrollClass("trending")}>
+                <PageTitle dynamictitle={"Now Trending"} />
+                <Trending />
             </div>
-            <div>
-                <Instruments className={getScrollClass("fade-in-up")} />
+
+            {/* Status Bar */}
+            <div ref={statusBarRef} className={getScrollClass("statusBar")}>
+                <StatusBarCom />
             </div>
-            <div>
-                <Community className={getScrollClass("fade-in-up")} />
-            </div>
-            <div>
-                <ScrollerButton className={getScrollClass("fade-in-up")} />
-            </div>
-            <div>
-                <PageTitle
-                    dynamictitle={"now trending"}
-                    className={getScrollClass("fade-in-up")}
-                />
-            </div>
-            <div>
-                <Trending className={getScrollClass("fade-in-up")} />
-            </div>
-            <div>
-                <PageTitle
-                    dynamictitle={"portfolio"}
-                    className={getScrollClass("fade-in-up")}
-                />
-            </div>
-            <div>
-                <StatusBarCom className={getScrollClass("fade-in-up")} />
-            </div>
-            <div>
-                <WhatsAppChat className={getScrollClass("fade-in-up")} />
-            </div>
-            <div>
-                <Marquee className={getScrollClass("fade-in-up")} />
+
+            {/* Marquee */}
+            <div ref={marqueeRef} className={getScrollClass("marquee")}>
+                <Marquee />
             </div>
 
             <Footer />

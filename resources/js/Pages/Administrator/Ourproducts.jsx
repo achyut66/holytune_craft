@@ -1,9 +1,11 @@
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../../../css/form.css";
 import Sidebar from "@/Components/Sidebar";
 import PageTitle from "@/Components/Pagetitle";
 import { Head, Link } from "@inertiajs/react";
+import ReactQuill from "react-quill"; // Import ReactQuill
+import "react-quill/dist/quill.snow.css"; // Import Quill styles
 
 const ProductForm = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -24,6 +26,7 @@ const ProductForm = () => {
         discount_percent: "",
         sound: null,
         flag: 1,
+        sale_new: 0,
     });
     // State to manage product list
     const [products, setProducts] = useState([]);
@@ -67,9 +70,7 @@ const ProductForm = () => {
 
     // Handle form submission
     const handleSubmit = async (e) => {
-        e.preventDefault(); // Prevent the page from refreshing
-
-        // Create a FormData object to handle file uploads
+        e.preventDefault();
         const data = new FormData();
         for (const key in formData) {
             data.append(key, formData[key]);
@@ -97,11 +98,9 @@ const ProductForm = () => {
                         JSON.stringify(error.response.data)
                 );
             } else if (error.request) {
-                // The request was made but no response was received
                 console.error("No response received:", error.request);
                 alert("No response received from the server.");
             } else {
-                // Something happened in setting up the request that triggered an Error
                 console.error("Error setting up the request:", error.message);
                 alert("Error setting up the request: " + error.message);
             }
@@ -122,7 +121,28 @@ const ProductForm = () => {
             alert("Error deleting product");
         }
     };
-
+    const handleEditorChange = (value) => {
+        setFormData({
+            ...formData,
+            detail_info: value, // Store editor content in the formData
+        });
+    };
+    // const handleBoxChange = (event) => {
+    //     const { id, checked } = event.target;
+    //     if (id === "sale" && checked) {
+    //         // If "sale" is checked, uncheck "new"
+    //         setCheckedState({ sale: 1, new: 0 });
+    //     } else if (id === "new" && checked) {
+    //         // If "new" is checked, uncheck "sale"
+    //         setCheckedState({ sale: 0, new: 1 });
+    //     } else {
+    //         // If unchecked, set corresponding value to 0
+    //         setCheckedState((prevState) => ({
+    //             ...prevState,
+    //             [id]: checked ? 1 : 0,
+    //         }));
+    //     }
+    // };
     return (
         <>
             <Head title={"AddProducts"} />
@@ -317,17 +337,19 @@ const ProductForm = () => {
                                                 required
                                             />
                                         </div>
-                                        <div className="input-group w-1/5">
-                                            <label htmlFor="detail_info">
-                                                Detail Information
-                                            </label>
-                                            <textarea
-                                                id="detail_info"
-                                                name="detail_info"
-                                                value={formData.detail_info}
-                                                onChange={handleInputChange}
-                                                required
-                                            />
+                                        <div className="input-group w-1/3">
+                                            <div className="input-group w-full">
+                                                <label htmlFor="detail_info">
+                                                    Detail Information
+                                                </label>
+                                                <ReactQuill
+                                                    value={formData.detail_info}
+                                                    onChange={
+                                                        handleEditorChange
+                                                    }
+                                                    placeholder="Write your post content here..."
+                                                />
+                                            </div>
                                         </div>
                                         <div className="input-group w-1/5">
                                             <label htmlFor="weight">
@@ -339,11 +361,10 @@ const ProductForm = () => {
                                                 name="weight"
                                                 value={formData.weight}
                                                 onChange={handleInputChange}
-                                                required
                                                 step="0.1" // This allows decimal values for weight
                                             />
                                         </div>
-                                        <div className="input-group w-1/5">
+                                        <div className="input-group w-1/7">
                                             <label htmlFor="q_unit">Unit</label>
                                             <select
                                                 className="form-control"
@@ -381,7 +402,6 @@ const ProductForm = () => {
                                                 name="diameter"
                                                 value={formData.diameter}
                                                 onChange={handleInputChange}
-                                                required
                                                 step="0.1" // This allows decimal values for weight
                                             />
                                         </div>
@@ -445,18 +465,31 @@ const ProductForm = () => {
                                             </p>
                                         </div>
                                         <div className="input-group w-1/5">
-                                            <button
-                                                type="submit"
-                                                className="bg-blue-500 text-white py-3 px-4 rounded hover:bg-blue-600"
+                                            <label htmlFor="sale">Status</label>
+                                            <select
+                                                className="form-control w-full p-2 border border-gray-300 rounded"
+                                                name="sale_new"
+                                                value={formData.sale_new}
+                                                onChange={handleInputChange}
                                             >
-                                                Submit
-                                            </button>
+                                                <option value={0}>
+                                                    ---select---
+                                                </option>
+                                                <option value={1}>Sale</option>
+                                                <option value={2}>New</option>
+                                            </select>
                                         </div>
                                         <div className="input-group w-1/5">
                                             <button
+                                                type="submit"
+                                                className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-600"
+                                            >
+                                                Submit
+                                            </button>
+                                            <button
                                                 type="button"
                                                 onClick={closeModal}
-                                                className="bg-gray-500 text-white py-3 px-4 rounded hover:bg-gray-600"
+                                                className="bg-red-500 text-white py-3 px-4 rounded hover:bg-red-600"
                                             >
                                                 Close
                                             </button>

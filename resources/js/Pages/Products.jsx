@@ -6,6 +6,8 @@ import PageTitle from "@/Components/Pagetitle";
 import StatusBar from "@/Components/StatusBar";
 import SingingBowlGuide from "@/Components/Singingbowlguide";
 import Productlists from "@/Components/Productlists";
+import DOMPurify from "dompurify";
+
 const ProductDetails = ({ product }) => {
     return (
         <>
@@ -68,9 +70,13 @@ const ProductDetails = ({ product }) => {
                             </div>
                         )}
                         <hr className="product-hr" />
-                        <p className="product-description">
-                            {product.detail_info}
-                        </p>
+
+                        <div
+                            className="product-description"
+                            dangerouslySetInnerHTML={{
+                                __html: DOMPurify.sanitize(product.detail_info),
+                            }}
+                        />
 
                         {product.discount_percent > 0 ? (
                             <div className="product-price-container">

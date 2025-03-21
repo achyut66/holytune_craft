@@ -1,81 +1,128 @@
-import React from "react";
-
-const blogPosts = [
-    {
-        id: 1,
-        title: "The Best Tibetan Singing bowls for meditation",
-        image: "/assets/images/img2.jpg",
-        user: "Achyut Neupane",
-        date: "May 12, 2021",
-        excerpt:
-            "Tibetan singing bowls produce soothing sounds, aiding meditation, relaxation, energy balance, and emotional well-being.",
-    },
-    {
-        id: 2,
-        title: "Top 10 E-commerce Trends in 2025",
-        image: "/assets/images/varved.jpg",
-        user: "Ganesh Silwal",
-        date: "May 12, 2021",
-        excerpt:
-            "Stay ahead of the competition by understanding the latest trends in the e-commerce industry.",
-    },
-    {
-        id: 3,
-        title: "How to Optimize Your Online Store for SEO",
-        image: "/assets/images/striker.jpg",
-        user: "Ramhari Neupane",
-        date: "May 12, 2021",
-        excerpt:
-            "Boost your online store's visibility with these essential SEO tips and strategies.",
-    },
-    {
-        id: 1,
-        title: "The Best Tibetan Singing bowls for meditation",
-        image: "/assets/images/img2.jpg",
-        user: "Achyut Neupane",
-        date: "May 12, 2021",
-        excerpt:
-            "Tibetan singing bowls produce soothing sounds, aiding meditation, relaxation, energy balance, and emotional well-being.",
-    },
-    {
-        id: 2,
-        title: "Top 10 E-commerce Trends in 2025",
-        image: "/assets/images/varved.jpg",
-        user: "Ganesh Silwal",
-        date: "May 12, 2021",
-        excerpt:
-            "Stay ahead of the competition by understanding the latest trends in the e-commerce industry.",
-    },
-    {
-        id: 3,
-        title: "How to Optimize Your Online Store for SEO",
-        image: "/assets/images/striker.jpg",
-        user: "Ramhari Neupane",
-        date: "May 12, 2021",
-        excerpt:
-            "Boost your online store's visibility with these essential SEO tips and strategies.",
-    },
-];
+import React, { useState, useEffect } from "react";
+import axios from "axios"; // Import axios for making API calls
+import DOMPurify from "dompurify";
 
 const BlogComponent = () => {
+    const [blogPosts, setBlogPosts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [showMoreMap, setShowMoreMap] = useState({}); // Track showMore state for each post
+
+    useEffect(() => {
+        const fetchBlogPosts = async () => {
+            try {
+                const response = await axios.get("/api/blogpost");
+                setBlogPosts(response.data);
+                setLoading(false);
+            } catch (error) {
+                setError("There was an error fetching the blog posts.");
+                setLoading(false);
+            }
+        };
+
+        fetchBlogPosts();
+    }, []);
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    if (error) {
+        return <div>{error}</div>;
+    }
+
+    // Function to format the date and time
+    const formatDateAndTime = (createdAt) => {
+        const date = new Date(createdAt);
+        const dateString = date.toLocaleDateString();
+        const timeString = date.toLocaleTimeString();
+
+        return {
+            date: dateString,
+            time: timeString,
+        };
+    };
+
+    // Toggle the "show more" content for a specific post
+    const toggleContent = (postId) => {
+        setShowMoreMap((prevState) => ({
+            ...prevState,
+            [postId]: !prevState[postId], // Toggle showMore for the specific post
+        }));
+    };
+
     return (
         <div className="blog-container">
-            {blogPosts.map((post) => (
-                <div key={post.id} className="blog-post">
-                    <img
-                        src={post.image}
-                        alt={post.title}
-                        className="blog-image"
-                    />
-                    <h2 className="blog-title">{post.title}</h2>
-                    <p className="blog-excerpt">{post.excerpt}</p>
-                    <p className="user">
-                        {post.user}
-                        <br />
-                        {post.date}
-                    </p>
-                </div>
-            ))}
+            {blogPosts.map((post) => {
+                const { date, time } = formatDateAndTime(post.created_at);
+                return (
+                    <div key={post.id} className="blog-post">
+                        <div className="user">
+                            <img
+                                src="assets/images/blogimage.jpg"
+                                width="50"
+                                height="50"
+                                alt="Blog Post Image"
+                            />
+                            {post.user_name}
+                        </div>
+
+                        <div
+                            className={`blog-content ${
+                                showMoreMap[post.id] ? "expanded" : ""
+                            }`}
+                        >
+                            <div
+                                className="blog-content"
+                                dangerouslySetInnerHTML={{
+                                    __html: DOMPurify.sanitize(post.posts),
+                                }}
+                            />
+                        </div>
+
+                        <div className="blog-image">
+                            <img
+                                src={`storage/${post.image}`}
+                                width="200"
+                                height="200"
+                                style={{ borderRadius: "50px" }}
+                                alt="Blog Image"
+                            />
+                        </div>
+                        <p className="date">{date}</p>
+
+                        {/* Display video only if showMore is true */}
+                        {showMoreMap[post.id] && post.video && (
+                            <iframe
+                                width="560"
+                                height="315"
+                                src={`storage/${post.video}`} // Assuming the post has a video URL
+                                title="Embedded Video"
+                                frameBorder="0"
+                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                            />
+                        )}
+
+                        <div
+                            className="view-more"
+                            onClick={() => toggleContent(post.id)}
+                        >
+                            <a
+                                href="#"
+                                style={{
+                                    color: "#007BFF",
+                                    textDecoration: "none",
+                                }}
+                            >
+                                {showMoreMap[post.id]
+                                    ? "View Less"
+                                    : "View More"}
+                            </a>
+                        </div>
+                    </div>
+                );
+            })}
         </div>
     );
 };

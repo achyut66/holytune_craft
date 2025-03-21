@@ -16,7 +16,7 @@ export default function ContactPage() {
             <Header />
             <PageTitle dynamictitle={pageTitle} />
             <ContactComponent />
-            <PageTitle dynamictitle={"We Provide"} />
+            <PageTitle />
             <StatusBar />
             <Footer />
         </div>

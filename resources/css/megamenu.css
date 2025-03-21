@@ -35,13 +35,19 @@ nav {
     color: #353535;
     text-transform: uppercase;
 }
+.logo{
+    margin-left: -185px;
+}
 
 /* normal menu css */
-
+.main_menu{
+    margin-right: 340px;
+}
 .main_menu > ul > li {
     display: inline-block;
     position: relative;
     margin: 0 -2px;
+    /* text-transform: uppercase; */
     font-family: 'Times New Roman', Times, serif;
 }
 .main_menu ul li {
@@ -95,9 +101,9 @@ nav {
     padding-left: 0px;
     padding-right: 10px;
 }
-.instrument-section{
-    margin-right: 20px;
-}
+/* .instrument-section{
+    margin-right: 10px;
+} */
 .mega_menu {
     left: 0px;
     right: 0px;
@@ -199,8 +205,6 @@ nav {
     .main_menu {
         display: none;
         width: 100%;
-
-        /* margin-left: 200px; */
     }
 
     .main_menu ul li {
@@ -252,11 +256,13 @@ nav {
     font-size: 14px;  /* Adjust font size */
     margin-left: 200px;  /* Remove all margins */
     cursor: pointer;
+    padding-bottom: 0%;
+    padding-top: 0%;
     text-decoration: none;  /* Ensure no underlines on links */
     border-radius: 5px;  /* Rounded corners for each item */
     transition: background-color 0.3s ease, transform 0.2s ease;  /* Smooth transition */
     background-color: #f9f9f9;  /* Light background for items */
-    line-height: 0.0000001;  /* Adjust line height for more compact text */
+    line-height: 0.0000000000000000000000000001;  /* Adjust line height for more compact text */
 }
 
 /* Hover effect to highlight the item */
@@ -294,16 +300,20 @@ nav {
     border-radius: 5px; /* Rounded corners for the scrollbar thumb */
 }
 .card-image-text {
-    margin-top: -10px;
-    text-align: center;
-    font-size: 16px;
-    color: #333;
-    white-space: pre-line; /* This ensures that line breaks are preserved */
-    width: 100%; /* Ensure the text container matches the width of the card */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px; /* Adjust padding as needed */
+    width: 100%; /* Adjust width as needed */
+    max-width: 300px; /* Set a maximum width if necessary */
+    margin: 0 auto; /* Center the container horizontally */
+    padding: 10px; /* Add padding inside the container */
+    background-color: #f9f9f9; /* Add a background color */
+    border: 1px solid #ddd; /* Add a border */
+    border-radius: 8px; /* Add rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    font-size: 14px; /* Adjust font size */
+    line-height: 1.5; /* Adjust line height for better readability */
+    text-align: center; /* Center-align text */
+    white-space: normal; /* Allow text to wrap */
+    word-wrap: break-word; /* Break long words if necessary */
+    overflow-wrap: break-word; /* Alternative to word-wrap */
 }
 .mega_menu::-webkit-scrollbar-track {
     background-color: #f1f1f1; /* Scrollbar track color */
@@ -343,13 +353,10 @@ nav {
 
 .fixed-nav{
     position: fixed;
-    /* top: 35px; */
-    /* left: 0; */
     width: 100%;
-    /* height: 50px; */
     z-index: 1000;
     background: #fff;
-    /* box-shadow: 0px 5px 15px 0px rgba(212, 201, 201, 0.75); */
+    box-shadow: 0px 5px 15px 0px rgba(212, 201, 201, 0.75);
 }
 
 

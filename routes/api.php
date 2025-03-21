@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BlogpostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
@@ -41,5 +42,15 @@ Route::get('/getitemsbyname',[ProductDetailsController::class,'getProductsByCate
 
 // email api
 Route::post('/sendemail', [EmailController::class, 'sendEmail']);
+
+// new dashboard
+Route::get('/newproduct',[ProductDetailsController::class,'getNewProduct']);
+Route::get('/saleproduct',[ProductDetailsController::class,'getSaleProduct']);
+
+// blog api
+Route::get('/blogpost',[BlogpostController::class,'index']);
+Route::post('/blogstore',[BlogpostController::class,'store']);
+Route::delete('/blogstore/{id}', [BlogpostController::class, 'destroy']);
+Route::match(['PUT', 'POST'], '/blog-update/{id}', [BlogpostController::class, 'update']);
 
 

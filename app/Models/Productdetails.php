@@ -24,7 +24,8 @@ class Productdetails extends Model
         'discount_percent',    
         'quantity', 
         'q_unit', 
-        'flag',    
+        'flag',   
+        'sale_new'
     ];
     protected $casts = [
         'price' => 'decimal:2', 

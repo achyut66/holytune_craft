@@ -6,7 +6,6 @@ import "../css/productlists.css";
 import "../css/megamenu.css";
 import "../css/pagetitle.css";
 import "../css/blog.css";
-import "../css/contact.css";
 import "../css/statusbar.css";
 import "../css/cart.css";
 import "../css/terms.css";

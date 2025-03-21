@@ -25,7 +25,7 @@ export default function SalePage() {
             </div>
             <SaleComponent />
             <div>
-                <PageTitle dynamictitle={"We Provide"} />
+                <PageTitle />
             </div>
             <StatusBar />
             <Footer />

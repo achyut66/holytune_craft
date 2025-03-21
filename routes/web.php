@@ -5,6 +5,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductDetailsController;
 use App\Http\Controllers\FacebookWebhookController;
+use App\Http\Controllers\BlogpostController;
 
 use Inertia\Inertia;
 
@@ -111,5 +112,12 @@ Route::get('/accessories',function(){
 Route::get('/instruments',function(){
     return Inertia::render('Categories/Instruments');
 })->name('instrumentspage');
+
+// blog post
+
+Route::get('/blogpost',function(){
+    return Inertia::render(('Blog/Blog'));
+})->name('blogpost');
+Route::get('blog-edit/{id}',[BlogpostController::class,'edit']);
 
 require __DIR__.'/auth.php';

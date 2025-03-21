@@ -29,6 +29,16 @@ class ProductDetailsController extends Controller
 
     return response()->json($products);
 }
+// get new products lists
+public function getNewProduct($sale_new = 2){
+    $products = ProductDetails::where('sale_new',$sale_new)->get();
+    return $products;
+}
+public function getSaleProduct($sale_new = 1){
+    $products = ProductDetails::where('sale_new',$sale_new)->get();
+    return $products;
+}
+
 public function getProductsByCategory(Request $request)
     {
         $category = $request->query('name', 'Himalayas'); 
@@ -86,7 +96,6 @@ public function get_instrument_category($categories = ['Gongs','Tingsha & Bells'
 
     public function store(Request $request)
 {
-
     $validatedData = $request->validate([
         'name' => 'required|string|max:255',
         'detail_info' => 'required|string',
@@ -94,22 +103,25 @@ public function get_instrument_category($categories = ['Gongs','Tingsha & Bells'
         'price' => 'required|numeric',
         'currency' => 'required|string|max:10',
         'category' => 'required|string',
-        'image' => 'nullable|file|mimes:jpg,jpeg,png', // Image is now nullable
-        'sound' => 'nullable|file|mimes:mp3', // Sound is now nullable
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Image is nullable
+        'sound' => 'nullable|mimes:mp3,wav|max:5120', // Sound is nullable
         'weight' => 'required|numeric',
-        'diameter' => 'required|numeric',
+        'diameter' => 'numeric',
         'd_unit' => 'required|string|max:10',
         'discount_percent' => 'required|numeric',
         'quantity' => 'required|integer',
         'q_unit' => 'required|string|max:10',
         'flag' => 'integer|max:10',
+        'sale_new' => 'integer|max:10',
     ]);
 
+    // Handle image upload
     $imagePath = null;
     if ($request->hasFile('image')) {
         $imagePath = $request->file('image')->store('images', 'public');
     }
 
+    // Handle sound upload
     $soundPath = null;
     if ($request->hasFile('sound')) {
         $soundPath = $request->file('sound')->store('sound', 'public');
@@ -123,8 +135,8 @@ public function get_instrument_category($categories = ['Gongs','Tingsha & Bells'
         'price' => $validatedData['price'],
         'currency' => $validatedData['currency'],
         'category' => $validatedData['category'],
-        'image' => $imagePath,
-        'sound' => $soundPath,
+        'image' => $imagePath,  // This will be null if no image is uploaded
+        'sound' => $soundPath,  // This will be null if no sound is uploaded
         'weight' => $validatedData['weight'],
         'diameter' => $validatedData['diameter'],
         'd_unit' => $validatedData['d_unit'],
@@ -132,6 +144,7 @@ public function get_instrument_category($categories = ['Gongs','Tingsha & Bells'
         'quantity' => $validatedData['quantity'],
         'q_unit' => $validatedData['q_unit'],
         'flag' => $validatedData['flag'],
+        'sale_new' => $validatedData['sale_new'],
     ]);
 
     return response()->json([
@@ -139,6 +152,7 @@ public function get_instrument_category($categories = ['Gongs','Tingsha & Bells'
         'product' => $products
     ], 200);
 }
+
 
 public function edit($id)
 {
@@ -167,6 +181,7 @@ public function update(Request $request, $id)
         'quantity' => 'integer|max:10',
         'q_unit' => 'string|max:10',
         'flag' => 'integer|max:10',
+        'sale_new' => 'int|max:10',
     ]);
 
     $product = ProductDetails::findOrFail($id);

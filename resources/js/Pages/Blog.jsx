@@ -18,7 +18,7 @@ export default function BlogPage() {
                 <BlogComponent />
             </div>
             <div>
-                <PageTitle dynamictitle={"We Provide"} />
+                <PageTitle />
             </div>
             <div>
                 <StatusBar />

@@ -132,35 +132,57 @@ button[type="submit"]:hover {
     height: 10vh;
     background-color: #f8f9fa;
 }
-.new-products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 60px;
-    padding: 20px;
+.new-products-container {
+    display: grid;                          /* Use grid layout */
+    grid-template-columns: repeat(4, 1fr);  /* Create 4 equal-width columns */
+    gap: 20px;                              /* Space between grid items */
+    margin: 0 auto;                         /* Center the grid container */
+    max-width: 1400px;                      
 }
 
 .product-card {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    position: relative;
+    background-color: #fff;  /* White background for the cards */
+    border-radius: 8px;       /* Rounded corners */
+    overflow: hidden;         /* Ensure content doesn't spill out */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Slight shadow for a 3D effect */
+    padding: 16px;            /* Padding inside each card */
+    text-align: center;       /* Center text and content */
 }
-.new-button{
-    border-radius: 5px;
-    background-color: rgba(0, 255, 149, 0.605);
-    padding: 2px 9px;
-    text-transform: uppercase;
-    /* margin-bottom: -10px; */
-    transition: cubic-bezier(0.075, 0.82, 0.165, 1);
 
+.newimage {
+    width: 100%;              /* Make the image fill the width of the card */
+    height: auto;             /* Keep the image's aspect ratio */
+    border-bottom: 2px solid #ddd; /* A border below the image */
 }
-.product-card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
+
+.product-info {
+    margin-top: 12px;
+    font-size: 14px;
+    color: #333;
+}
+
+.product-price {
+    font-weight: bold;
+    font-size: 16px;
+    color: #000;
+}
+
+@media (max-width: 1024px) {
+    .new-products-container {
+        grid-template-columns: repeat(3, 1fr); /* 3 items per row on tablets */
+    }
+}
+
+@media (max-width: 768px) {
+    .new-products-container {
+        grid-template-columns: repeat(2, 1fr); /* 2 items per row on smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .new-products-container {
+        grid-template-columns: 1fr; /* 1 item per row on mobile screens */
+    }
 }
 
 .product-card h2 {
@@ -210,7 +232,7 @@ button[type="submit"]:hover {
     opacity: 1;
 }
 
-.add-to-cart-btn {
+.buy-btn {
     background-color: #000;
     color: #fff;
     border: none;
@@ -221,25 +243,12 @@ button[type="submit"]:hover {
     border-radius: 4px;
     margin: 16px;
     transition: background-color 0.3s ease;
-}
-.buy-btn {
-    background-color: green;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    font-size: 1em;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 4px;
-    text-overflow: inherit;
-    margin-left: 70px;
+    
+    /* margin-left: 70px; */
     /* margin: -16px; */
     /* transition: background-color 0.3s ease; */
 }
 
-.add-to-cart-btn:hover {
-    background-color: #333;
-}
 
 .play-sound-btn {
     background-color: #007bff;
@@ -378,23 +387,6 @@ button[type="submit"]:hover {
 .product-card:hover .product-price::before {
     transform: scale(1);
     opacity: 1;
-}
-
-.add-to-cart-btn {
-    background-color: #000;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    font-size: 1em;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 4px;
-    margin: 16px;
-    transition: background-color 0.3s ease;
-}
-
-.add-to-cart-btn:hover {
-    background-color: #333;
 }
 
 .play-sound-btn {

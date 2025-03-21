@@ -2,6 +2,8 @@ import React from "react";
 import ItemsNew from "@/Components/Items";
 import StatusBar from "@/Components/StatusBar";
 import PageTitle from "@/Components/Pagetitle";
+import "../../css/contact.css";
+
 const NewComponent = () => {
     return (
         <>
@@ -16,7 +18,7 @@ const NewComponent = () => {
                 <ItemsNew />
             </div>
             <div>
-                <PageTitle dynamictitle={"We Provide"} />
+                <PageTitle />
             </div>
             <div>
                 <StatusBar />

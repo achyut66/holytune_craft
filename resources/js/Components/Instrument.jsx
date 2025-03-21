@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../../css/trending.css"; // Import the CSS file
+import { Link } from "@inertiajs/react";
 
 const Instruments = () => {
     const [products, setProducts] = useState([]);
@@ -50,24 +51,28 @@ const Instruments = () => {
             <div className="trending-grid">
                 {products.map((product) => (
                     <div key={product.id} className="trending-product-card">
-                        <div className="product-image">
-                            <img
-                                src={`/storage/${product.image}`}
-                                alt={product.name}
-                                className="product-img"
-                            />
-                        </div>
-                        <div className="product-details">
-                            <h3>{product.name}</h3>
-                            <p>{product.description}</p>
-                            <p className="product-price">${product.price}</p>
-                            <button
-                                className="add-to-cart-btn"
-                                onClick={() => addToCart(product)}
-                            >
-                                Add to Cart
-                            </button>
-                        </div>
+                        <Link href={`/products/${product.id}`}>
+                            <div className="product-image">
+                                <img
+                                    src={`/storage/${product.image}`}
+                                    alt={product.name}
+                                    className="product-img"
+                                />
+                            </div>
+                            <div className="product-details">
+                                <h3>{product.name}</h3>
+                                <p>{product.description}</p>
+                                <p className="product-price">
+                                    ${product.price}
+                                </p>
+                                <button
+                                    className="add-to-cart-btn"
+                                    onClick={() => addToCart(product)}
+                                >
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </Link>
                     </div>
                 ))}
             </div>

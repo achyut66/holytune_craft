@@ -38,7 +38,7 @@ export default function Login({ status, canResetPassword }) {
 
     return (
         <>
-            <Header />
+            {/* <Header /> */}
             <GuestLayout>
                 <Head title="Log in" />
                 <form onSubmit={submit}>
@@ -121,7 +121,7 @@ export default function Login({ status, canResetPassword }) {
                     </div>
                 </form>
             </GuestLayout>
-            <Footer />
+            {/* <Footer /> */}
         </>
     );
 }

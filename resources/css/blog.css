@@ -1,35 +1,113 @@
+/* General styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Blog container */
 .blog-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
+    width: 80%;
+    margin: 20px auto;
     padding: 20px;
-}
-
-.blog-post {
-    background: #fff;
-    border: 1px solid #ddd;
+    background-color: #f9f9f9;
     border-radius: 8px;
-    overflow: hidden;
-    width: calc(33.333% - 20px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.blog-image {
+/* Blog post wrapper */
+.blog-post {
+    position: relative;
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* User icon and name */
+.blog-post .user {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #333;
+}
+
+.blog-post .user img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+/* Post title */
+.blog-post .blog-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #333;
+}
+
+/* Blog content */
+.blog-post  {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-top: 20px;
+    color: #555;
+}
+.blog-content{
+    font-size: 18px;
+    line-height: 1.6;
+    margin-top: 70px;
+    color: #555;
+}
+
+/* Date */
+.blog-post .date {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 14px;
+    color: #888;
+}
+
+/* Video iframe */
+.blog-post iframe {
     width: 100%;
-    height: 200px;
-    object-fit: cover;
+    height: 400px;
+    border: none;
+    margin-top: 20px;
+    border-radius: 8px;
+}
+/* blog image */
+.blog-image{
+    margin-top: -80px;
+    margin-left: 1050px;
+    /* border-radius: 50px; */
 }
 
-.blog-title {
-    font-size: 1.5em;
-    margin: 16px;
-}
+/* Responsive design */
+@media (max-width: 768px) {
+    .blog-container {
+        width: 95%;
+    }
 
-.blog-excerpt {
-    font-size: 1em;
-    margin: 0 16px 16px;
-}
-.user{
-    color:#afc4c2;
-    text-align: right;
+    .blog-post {
+        padding: 15px;
+    }
+
+    .blog-post .blog-title {
+        font-size: 20px;
+    }
+
+    .blog-post .blog-content {
+        font-size: 14px;
+    }
+
+    .blog-post iframe {
+        height: 300px;
+    }
 }

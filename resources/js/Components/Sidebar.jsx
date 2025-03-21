@@ -30,17 +30,18 @@ const Sidebar = ({ isSidebarOpen }) => {
                     <li>
                         <a href={route("cms-products")}>Our Products</a>
                     </li>
-                    <li>
-                        <a href="#services">Categories</a>
-                    </li>
-                    <li>
+
+                    {/* <li>
                         <a href="#contact">New Items</a>
                     </li>
                     <li>
                         <a href="#contact">Sale Item</a>
+                    </li> */}
+                    <li>
+                        <a href="/blogpost">Blog Posts</a>
                     </li>
                     <li>
-                        <a href="#contact">Blog Posts</a>
+                        <a href="#services">Inquiry Request</a>
                     </li>
                     <hr
                         style={{

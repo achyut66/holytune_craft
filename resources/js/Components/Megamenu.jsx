@@ -143,7 +143,6 @@ const Megamenu = () => {
                                             ))}
                                         </div>
                                     </div>
-
                                     <div className="menu-section">
                                         <h2 className="mega-menu-head-h2">
                                             <u> Accessories</u>
@@ -177,8 +176,7 @@ const Megamenu = () => {
                                             ))}
                                         </div>
                                     </div>
-
-                                    <div className="menu-section instrument-section">
+                                    <div className="menu-section">
                                         <h2 className="mega-menu-head-h2">
                                             <u> Instruments</u>
                                         </h2>
@@ -211,7 +209,6 @@ const Megamenu = () => {
                                             ))}
                                         </div>
                                     </div>
-
                                     <div className="menu-section">
                                         <div className="image-menu-items-row">
                                             <div className="card">
@@ -252,6 +249,21 @@ const Megamenu = () => {
                                 <Link href={route("contact")}>Contact</Link>
                             </li>
                         </ul>
+                        {/* <ul> */}
+                        {/* <li> */}
+                        {/* <div
+                            className="card"
+                            style={{
+                                textAlign: "center",
+                                height: "50px",
+                                marginRight: "30px",
+                                marginTop: "-20px",
+                            }}
+                        >
+                            text here
+                        </div> */}
+                        {/* </li> */}
+                        {/* </ul> */}
                     </div>
                 </div>
                 {hoveredItem && (
